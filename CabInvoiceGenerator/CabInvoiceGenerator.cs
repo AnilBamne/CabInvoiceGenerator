@@ -17,8 +17,6 @@ namespace CabInvoiceGenerator222Batch
         /// <returns> total fare</returns>
         public double CalculateTotalFare(Ride ride)
         {
-           // try
-            //{
                 double totalFare = 0;
                 if (ride.distance <= 0)
                 {
@@ -30,21 +28,16 @@ namespace CabInvoiceGenerator222Batch
                 }
                 totalFare = ride.distance * ride.DISTANCE_PER_KM + ride.time * ride.COST_PER_MIN;
                 return Math.Max(totalFare, ride.MINIMUM_FARE);
-            //}
-            //catch (Exception )
-            //{
-            //    return default;
-            //}
         }
 
-        public double CalculateTotalFare(Ride[] rides)
+        public InvoiceSummary CalculateTotalFare(Ride[] rides)
         {
             double totalFare = 0;
             foreach(Ride ride in rides)
             {
                 totalFare += CalculateTotalFare(ride);
             }
-            return totalFare;
+            return new InvoiceSummary(totalFare,rides.Length);
         }
     }
 }
